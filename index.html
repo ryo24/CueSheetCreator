@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qsheet Creator</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/print.css" media="print">
+</head>
+<body>
+  <div id="app" class="layout">
+    <!-- トップナビゲーション -->
+    <nav class="top-nav">
+      <div class="nav-left">
+        <div class="logo">Qsheet Creator</div>
+        <input type="text" id="event-name" class="event-title-input" placeholder="イベント名" />
+      </div>
+      <div class="nav-center">
+        <input type="file" id="inp-import" accept=".cuesheet" style="display: none;">
+        <button id="btn-import-trigger" class="nav-btn" onclick="document.getElementById('inp-import').click()">インポート</button>
+        <button id="btn-export" class="nav-btn">エクスポート</button>
+        <button id="btn-print" class="nav-btn" onclick="window.print()">印刷プレビュー</button>
+      </div>
+      <div class="nav-right">
+        <button id="btn-help" class="nav-btn">❓ ヘルプ</button>
+      </div>
+    </nav>
+
+    <div class="main-body">
+      <!-- 左サイドバー -->
+      <aside class="left-sidebar no-print">
+        <div class="sidebar-section">
+          <small>イベント管理</small>
+          <span>進行中</span>
+        </div>
+        <ul class="sidebar-menu">
+          <li class="active">プログラム一覧</li>
+        </ul>
+        <div class="sidebar-sub-section">
+          <h4>選択中のプログラム</h4>
+          <ul class="program-list" id="sidebar-program-list">
+            <!-- Program titles will be rendered here -->
+          </ul>
+          <button id="btn-add-program" class="btn-sidebar-add">+ プログラム追加</button>
+        </div>
+      </aside>
+
+      <!-- メインコンテンツ -->
+      <main class="content-area">
+        <!-- 印刷時の特殊ヘッダー -->
+        <div class="print-header print-only">
+          <div class="ph-left">
+            <div class="ph-subtitle">公式キューシート</div>
+            <h2 id="print-event-name">EVENT: </h2>
+            <h3 id="print-program-name">PROGRAM: </h3>
+          </div>
+          <div class="ph-right">
+            <div class="ph-meta">出力日時: <span id="print-date"></span></div>
+          </div>
+        </div>
+
+        <div class="breadcrumb no-print">
+          <span class="chip">イベント</span> / <span class="chip">プログラム</span>
+        </div>
+        <div class="program-header-row no-print">
+          <input type="text" id="active-program-name" class="headline-editor" placeholder="プログラム名" />
+        </div>
+        
+        <!-- キューシート表 -->
+        <div class="qsheet-table">
+          <div class="thead">
+            <div class="th col-no">NO.</div>
+            <div class="th col-media">プレビュー / メディア</div>
+            <div class="th col-desc">進行内容 (DESCRIPTION)</div>
+            <div class="th col-cue">照明・キュー (LIGHTING / CUE)</div>
+            <div class="th col-memo">備考 (MEMOS)</div>
+            <div class="th col-actions no-print"></div>
+          </div>
+          <div class="tbody" id="active-program-scenes">
+             <!-- Scenes rendered here -->
+          </div>
+        </div>
+        
+        <div class="add-scene-bottom no-print">
+           <button class="btn-text-add" id="btn-add-scene-bottom">⊕ 新しいシーンを挿入</button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ヘルプモーダル -->
+  <div id="help-modal" class="modal-overlay hidden no-print">
+    <div class="modal-content help-modal-large">
+      <div class="modal-header">
+        <h3>Qsheet Creator 使い方ガイド</h3>
+        <button id="btn-close-help" class="btn-icon">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="help-section">
+          <h4>💡 Qsheet Creatorとは？</h4>
+          <p>本ツールは、イベント進行や照明・音響指示で用いる「キューシート（進行表）」を、ブラウザ上で直感的に作成・編集・共有するための専用エディターです。特別なソフトのインストールや会員登録は一切不要で、お手元のPC（ウェブブラウザ）だけで軽快にご利用いただけます。</p>
+        </div>
+        
+        <div class="help-section">
+          <h4>📝 基本の編集機能</h4>
+          <ul>
+            <li><strong>画像のカンタン配置:</strong> 各シーンの「UPLOAD」エリアにスクリーンショットや写真をドラッグ＆ドロップするだけで、自動でサイズを軽量化（最適化）され表内に配置されます。</li>
+            <li><strong>シーンの配置と並び替え:</strong> 行の左端にある「≡（ドラッグハンドル）」を掴んで上下に移動させると、シーンの順序を簡単に入れ替えることができます。<br>（連番崩れを防ぐため、シーン番号は自動で振り直されますので入力不要です）</li>
+            <li><strong>プログラム（セクション）の管理:</strong> イベント全体をそのまま1つの表にすると長くなるため、「1日目」や「謎解きパート」といった大きな区切りごとにプログラムを作成し、左側のメニューから切り替えて編集することができます。</li>
+          </ul>
+        </div>
+        
+        <div class="help-section">
+          <h4>📁 データの保存とチーム共有</h4>
+          <p><strong style="color: #e74c3c;">自動保存はされますが、ブラウザのキャッシュ消去等でデータが消える可能性があるため、区切りで必ず右上の「エクスポート」を行ってください。</strong></p>
+          <ul>
+            <li><strong>.cuesheet ファイルとは？</strong><br>
+            エクスポート（書き出し）時に生成される「<code>.cuesheet</code>」は、本アプリ専用の保存ファイル形式です。（実態は入力テキストと画像を一つにまとめた軽量なZIPファイルです）</li>
+            <li><strong>他メンバーへの共有:</strong><br>
+            保存した <code>.cuesheet</code> ファイルをそのまま司会者や他のスタッフへ送付してください。受け取った人は「インポート」からそのファイルを読み込むだけで、画像つきの進行表が一瞬で手元に復元され、そのまま続きを編集することができます。</li>
+          </ul>
+        </div>
+
+        <div class="help-section">
+          <h4>🖨️ 現場用アウトプット（印刷・PDF化）</h4>
+          <p>画面右上の<strong>「印刷プレビュー」</strong>ボタン（または <code>Ctrl+P</code> / <code>Command+P</code>）を押すと、編集用のボタンやメニュー類が自動的にすべて消去され、そのまま現場で配れる<strong>「公式キューシート表」の印刷モード</strong>（用紙はA4横向き・Landscapeを推奨）に切り替わります。<br>プリンターで直接印刷するか、PDFとして保存してiPad等で当日閲覧するのにも最適です。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- テンプレート: シーン(行) -->
+  <template id="tpl-scene">
+    <div class="scene-row">
+      <div class="td col-no">
+        <div class="drag-handle no-print" title="ドラッグして並び替え">≡</div>
+        <input type="text" class="inp-number label-md" placeholder="01" readonly title="並び替え連携のため自動採番されます"/>
+      </div>
+      <div class="td col-media">
+        <div class="image-drop-area">
+          <span class="drop-text label-md upload-icon no-print">UPLOAD</span>
+          <img src="" class="scene-img hidden" alt="シーン画像">
+          <button class="btn-remove-image no-print hidden">×</button>
+        </div>
+      </div>
+      <div class="td col-desc">
+        <input type="text" class="inp-title headline-sm" placeholder="タイトル" />
+        <textarea class="inp-desc body-md" placeholder="詳細な進行内容を入力してください"></textarea>
+      </div>
+      <div class="td col-cue">
+        <textarea class="inp-lighting body-md" placeholder="例:&#10;・客席を明るく&#10;・スクリーンが見えるように&#10;・照明全てFO、暗転"></textarea>
+      </div>
+      <div class="td col-memo">
+        <textarea class="inp-memo body-md" placeholder="例:&#10;・司会は動き回ります&#10;・OP映像開始前&#10;・スライド後ブザー鳴らす"></textarea>
+      </div>
+      <div class="td col-actions no-print">
+         <button class="btn-delete-scene btn-icon" title="シーン削除">🗑️</button>
+      </div>
+    </div>
+  </template>
+
+  <!-- Libraries -->
+  <script src="js/jszip.min.js"></script>
+  <script src="js/sortable.min.js"></script>
+  <!-- Application Logic -->
+  <script src="js/app.js"></script>
+</body>
+</html>

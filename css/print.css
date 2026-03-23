@@ -1,0 +1,88 @@
+/* Print CSS */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 15mm;
+  }
+
+  body {
+    background-color: white;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    margin: 0;
+    padding: 0;
+  }
+
+  .no-print, .left-sidebar, .top-nav {
+    display: none !important;
+  }
+
+  .content-area {
+    padding: 0 !important;
+    background: white !important;
+    margin: 0 !important;
+    overflow: visible;
+  }
+
+  /* Print Header Styles */
+  .print-only {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    border-bottom: 3px solid var(--primary);
+    padding-bottom: 10px;
+  }
+  .ph-left { flex: 1; }
+  .ph-subtitle { font-family: var(--font-sans); font-size: 9pt; color: #666; letter-spacing: 0.1em; margin-bottom: 4px;}
+  #print-event-name { font-family: var(--font-serif); font-size: 16pt; margin: 0 0 4px 0; font-weight: 700; color: black; }
+  #print-program-name { font-family: var(--font-sans); font-size: 11pt; color: var(--primary); margin: 0; }
+  .ph-meta { font-family: var(--font-sans); font-size: 7pt; color: #666; text-align: right; }
+
+  /* Table Styles */
+  .qsheet-table {
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .thead {
+    padding: 0 0 8px 0;
+    border-bottom: 2px solid black;
+    color: black;
+    font-size: 8pt;
+  }
+
+  .scene-row {
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+    page-break-inside: avoid;
+    gap: 15px;
+  }
+
+  .col-no { width: 30px; }
+  .col-media { width: 140px; }
+  .col-desc { flex: 2; }
+  .col-cue { flex: 1.5; }
+  .col-memo { flex: 1; }
+
+  input, textarea {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    resize: none !important;
+    overflow: hidden;
+    color: black !important;
+  }
+  
+  .image-drop-area {
+    border: none !important;
+    background: transparent !important;
+  }
+
+  .inp-number { font-size: 11pt; }
+  .inp-title { font-size: 12pt; margin-bottom: 4px; }
+  .inp-desc, .inp-lighting, .inp-memo { font-size: 9pt; height: auto !important; min-height: unset; line-height: 1.4; color: #333 !important;}
+}
