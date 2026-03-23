@@ -27,13 +27,31 @@ QsheetCreataor/
   - `data.json`: テキスト入力内容（イベント名、プログラム構造、シーンごとの進行テキスト等）をJSON化したもの。
   - `images/`: ユーザーが表内にアップロードした画像を格納するディレクトリ。
 
-### JSONデータの階層 (State Object)
-JS内での状態管理 (`state`) は以下の構成となっています。
-- `eventName`: 全体のイベント名
-- `programs`: プログラム（セクション）の配列
-  - `id`, `name`: プログラム識別子と名前
-  - `scenes`: そのプログラムに属する行（シーン）の配列
-    - `id`, `number`, `title`, `desc`, `imageId`, `lighting`, `memo`
+### JSONデータ構造の具体例 (`data.json` / State Object)
+JS内で管理され、`.cuesheet` 内の `data.json` として保存されるコアデータの実際の構造（スキーマ）は以下のようになっています。将来的にAIが別プログラムからこのデータをパース・生成・結合する際の参考にしてください。
+
+```json
+{
+  "eventName": "サマーキャンプ 2025",
+  "programs": [
+    {
+      "id": "p-xxx123",
+      "name": "1日目 午前",
+      "scenes": [
+        {
+          "id": "s-yyy456",
+          "number": "01",
+          "title": "客入れ",
+          "desc": "会場BGM再生中。メインスクリーンにウェルカム画面を表示。\n来場者の入場を開始。",
+          "imageId": "img-zzz789",  // images/ フォルダ内に保存された画像ファイル名と紐づくID（ない場合は null）
+          "lighting": "Warm Wash",
+          "memo": "-"
+        }
+      ]
+    }
+  ]
+}
+```
 
 ## 4. コアロジック (app.js の設計方針)
 - **Re-render パターン**: 現代的なフレームワークの動作をVanilla JSで模倣し、データ (`state`) に変更が加わった際は必ず `render()` 関数を呼び出し、必要なDOMを丸ごと再生成・再バインディングするシンプルな単方向データフローを採用しています。
