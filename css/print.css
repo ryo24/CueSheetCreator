@@ -1,5 +1,10 @@
 /* Print CSS */
 @media print {
+  :root {
+    --table-column-gap: 15px;
+    --table-columns: 40px 120px minmax(0, 2fr) minmax(0, 1fr);
+  }
+
   @page {
     size: A4 portrait;
     margin: 15mm;
@@ -45,17 +50,12 @@
   .col-no,
   .thead .col-no {
     display: flex !important;
-    width: 40px !important;
-    min-width: 40px !important;
-    flex: 0 0 40px !important;
+    margin-top: 0 !important;
   }
 
   .col-media,
   .thead .col-media {
     display: flex !important;
-    width: 120px !important;
-    min-width: 120px !important;
-    flex: 0 0 120px !important;
   }
 
   .scene-row .image-drop-area,
@@ -109,13 +109,13 @@
     border-bottom: 2px solid black;
     color: black;
     font-size: 8pt;
+    align-items: end;
   }
 
   .scene-row {
     padding: 15px 0;
     border-bottom: 1px solid #ddd;
     page-break-inside: avoid;
-    gap: 15px;
   }
 
   input, textarea {
