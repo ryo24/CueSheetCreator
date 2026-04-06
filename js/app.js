@@ -41,6 +41,29 @@ function saveLocal() {
   }
 }
 
+async function exportCueSheet() {
+  if(!window.JSZip) {
+    alert("ZIPライブラリがロードされていません");
+    return;
+  }
+
+  const zip = new JSZip();
+  zip.file("data.json", JSON.stringify(state, null, 2));
+  const imgFolder = zip.folder("images");
+  for (const [imgId, dataUrl] of Object.entries(imageCache)) {
+    if(!dataUrl) continue;
+    const base64Data = dataUrl.split(',')[1];
+    if(base64Data) imgFolder.file(`${imgId}.jpg`, base64Data, {base64: true});
+  }
+
+  const content = await zip.generateAsync({type: "blob"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(content);
+  a.download = `${sanitizeFilenamePart(state.eventName, "cuesheet")}.cuesheet`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
 function render() {
   if(!activeProgramId && state.programs.length > 0) activeProgramId = state.programs[0].id;
 
@@ -256,22 +279,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById('btn-add-scene-bottom').addEventListener('click', addSceneToActive);
   
-  document.getElementById('btn-export').addEventListener('click', async () => {
-    if(!window.JSZip) { alert("ZIPライブラリがロードされていません"); return; }
-    const zip = new JSZip();
-    zip.file("data.json", JSON.stringify(state, null, 2));
-    const imgFolder = zip.folder("images");
-    for (const [imgId, dataUrl] of Object.entries(imageCache)) {
-      if(!dataUrl) continue;
-      const base64Data = dataUrl.split(',')[1];
-      if(base64Data) imgFolder.file(`${imgId}.jpg`, base64Data, {base64: true});
-    }
-    const content = await zip.generateAsync({type: "blob"});
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(content);
-    a.download = (state.eventName || "cuesheet") + ".cuesheet";
-    a.click();
-    URL.revokeObjectURL(a.href);
+  document.getElementById('btn-export').addEventListener('click', () => {
+    exportCueSheet();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    const isSaveShortcut = (e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's';
+    if (!isSaveShortcut) return;
+
+    e.preventDefault();
+    exportCueSheet();
   });
 
   document.getElementById('inp-import').addEventListener('change', async (e) => {

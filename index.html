@@ -18,7 +18,7 @@
       <div class="nav-center">
         <input type="file" id="inp-import" accept=".cuesheet" style="display: none;">
         <button id="btn-import-trigger" class="nav-btn" onclick="document.getElementById('inp-import').click()">インポート</button>
-        <button id="btn-export" class="nav-btn">エクスポート</button>
+        <button id="btn-export" class="nav-btn" title="Cmd/Ctrl + S">エクスポート</button>
         <button id="btn-print" class="nav-btn" onclick="window.print()">印刷プレビュー</button>
       </div>
       <div class="nav-right">
@@ -112,7 +112,7 @@
         
         <div class="help-section">
           <h4>📁 データの保存とチーム共有</h4>
-          <p><strong style="color: #e74c3c;">自動保存はされますが、ブラウザのキャッシュ消去等でデータが消える可能性があるため、区切りで必ず右上の「エクスポート」を行ってください。</strong></p>
+          <p><strong style="color: #e74c3c;">自動保存はされますが、ブラウザのキャッシュ消去等でデータが消える可能性があるため、区切りで必ず右上の「エクスポート」または <code>Ctrl+S</code> / <code>Command+S</code> を行ってください。</strong></p>
           <ul>
             <li><strong>.cuesheet ファイルとは？</strong><br>
             エクスポート（書き出し）時に生成される「<code>.cuesheet</code>」は、本アプリ専用の保存ファイル形式です。（実態は入力テキストと画像を一つにまとめた軽量なZIPファイルです）</li>
