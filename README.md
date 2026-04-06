@@ -1,6 +1,6 @@
-# QueSheetCreator
+# CueSheetCreator
 
-QueSheetCreator は、イベント進行表や照明・音響向けのキューシートをブラウザだけで作成・編集・印刷できる、ビルド不要のローカル Web アプリです。
+CueSheetCreator は、イベント進行表や照明・音響向けのキューシートをブラウザだけで作成・編集・印刷できる、ビルド不要のローカル Web アプリです。
 
 ## Current Status
 

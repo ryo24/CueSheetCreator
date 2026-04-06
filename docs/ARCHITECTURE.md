@@ -1,4 +1,4 @@
-# QueSheetCreator — System Architecture & Implementation Policy
+# CueSheetCreator — System Architecture & Implementation Policy
 
 本ドキュメントは、将来的に他の開発者やAIアシスタントが本プロジェクトを解析・機能拡張する際のガイドラインとして、企画意図と実装方針をまとめたものです。
 
@@ -8,7 +8,7 @@
 
 ## 2. ディレクトリ構造
 ```
-QueSheetCreator/
+CueSheetCreator/
 ├── index.html        # アプリケーションのエントリーポイント兼メインUI
 ├── css/
 │   ├── style.css     # 画面表示用のメインスタイル（モダンUI/CSS変数を活用）

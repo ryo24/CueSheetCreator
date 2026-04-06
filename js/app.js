@@ -1,5 +1,5 @@
 // app.js
-console.log("QueSheetCreator initialized");
+console.log("CueSheetCreator initialized");
 
 let state = {
   eventName: "",
