@@ -12,6 +12,26 @@ function generateId(prefix) {
   return prefix + '-' + Math.random().toString(36).substr(2, 9);
 }
 
+function sanitizeFilenamePart(value, fallback) {
+  const trimmed = (value || '').trim();
+  if (!trimmed) return fallback;
+  return trimmed.replace(/[\\/:*?"<>|]/g, '_');
+}
+
+function formatDateForFilename(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function updateDocumentTitle(activeProg, date) {
+  const eventName = sanitizeFilenamePart(state.eventName, 'UntitledEvent');
+  const programName = sanitizeFilenamePart(activeProg ? activeProg.name : '', 'Program');
+  const formattedDate = formatDateForFilename(date);
+  document.title = `${eventName}-${programName}-${formattedDate}`;
+}
+
 function saveLocal() {
   try {
     localStorage.setItem('qcreator_state', JSON.stringify(state));
@@ -65,6 +85,7 @@ function render() {
   const tbody = document.getElementById('active-program-scenes');
   
   if(!activeProg) {
+     updateDocumentTitle(null, d);
      document.getElementById('active-program-name').value = '';
      document.getElementById('print-program-name').textContent = "PROGRAM: ";
      tbody.innerHTML = '';
@@ -75,6 +96,7 @@ function render() {
   if(document.activeElement !== progNameInput) {
     progNameInput.value = activeProg.name;
   }
+  updateDocumentTitle(activeProg, d);
   document.getElementById('print-program-name').textContent = "PROGRAM: " + activeProg.name;
   
   tbody.innerHTML = '';
