@@ -2,5 +2,5 @@
 
 # Local exported cuesheet files
 *.cuesheet
-/.qsheet/*
-!/.qsheet/.gitkeep
+/cuesheets/*
+!/cuesheets/.gitkeep
