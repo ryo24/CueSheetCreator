@@ -4,7 +4,7 @@
 **Creative North Star: The Digital Curator**
 This design system moves away from the rigid, "utility-first" appearance of traditional B2B SaaS. Instead, it adopts the persona of a high-end event director—authoritative, meticulously organized, yet possessing an undeniable aesthetic grace. 
 
-We break the "template" look by treating the Qsheet not as a spreadsheet, but as a live editorial document. We utilize **intentional asymmetry**, where sidebars and content areas have varying weights, and **High-Contrast Typography Scales** that juxtapose an expansive Serif display with a functional, condensed Sans-Serif UI. The goal is to make the user feel they are "curating" an experience rather than just entering data.
+We break the "template" look by treating the QueSheet not as a spreadsheet, but as a live editorial document. We utilize **intentional asymmetry**, where sidebars and content areas have varying weights, and **High-Contrast Typography Scales** that juxtapose an expansive Serif display with a functional, condensed Sans-Serif UI. The goal is to make the user feel they are "curating" an experience rather than just entering data.
 
 ---
 
@@ -14,7 +14,7 @@ The palette is rooted in a deep, prestigious foundation with "lit-from-within" a
 ### The Palette
 - **Primary (`#041221`)**: Our "Midnight Navy." Used for primary navigation and high-authority headers to anchor the experience in trust.
 - **Tertiary (`#190f00`) & Tertiary Fixed Dim (`#e9c176`)**: Our "Gold Accents." Use these sparingly for highlighting active scenes or high-priority "Show Moments."
-- **Surface Tiers**: We use `surface-container-lowest` (`#ffffff`) for the actual Qsheet "cells" and `surface` (`#f8f9fa`) for the workspace background.
+- **Surface Tiers**: We use `surface-container-lowest` (`#ffffff`) for the actual QueSheet "cells" and `surface` (`#f8f9fa`) for the workspace background.
 
 ### The "No-Line" Rule
 Standard 1px borders are strictly prohibited for sectioning. We define space through **Tonal Transitions**. 
@@ -35,7 +35,7 @@ The typography is the "soul" of the application, balancing the classic elegance 
 
 - **Display & Headlines (Noto Serif):** Used for Event Titles and Program Headers. This serif communicates heritage and high-end hospitality. 
     - *Example:* Use `headline-lg` for the Event Name to give it an editorial weight.
-- **UI & Labels (Manrope):** A modern, geometric sans-serif used for the "data" of the Qsheet. 
+- **UI & Labels (Manrope):** A modern, geometric sans-serif used for the "data" of the QueSheet. 
     - *Example:* Use `label-md` for timecodes and `body-md` for scene descriptions.
 - **The Hierarchy Strategy:** Always pair a `headline-sm` (Serif) with a `label-sm` (Sans-Serif, All-Caps, tracked out +5%) to create a sophisticated, labeled-archival look.
 
@@ -52,7 +52,7 @@ We eschew traditional drop shadows for **Tonal Layering** and **Ambient Diffusio
 
 ## 5. Components
 
-### Structured Tables (The Qsheet)
+### Structured Tables (The QueSheet)
 *Forbid the use of divider lines.*
 - **The Row:** Use a `0.5rem` (spacing-2) vertical gap between rows. 
 - **The Highlight:** When a row is "Live," change the background to `secondary-container` (#c8dffe) and add a `2px` left-accent of `tertiary-fixed-dim` (#e9c176).
@@ -85,4 +85,4 @@ We eschew traditional drop shadows for **Tonal Layering** and **Ambient Diffusio
 - **Don't** use pure black (#000000). Always use `primary` or `on-surface` to maintain the navy/slate depth.
 - **Don't** use standard "Success Green" or "Warning Yellow" at full saturation. Use muted, sophisticated versions that align with the `secondary` and `tertiary` tones.
 - **Don't** use 100% opaque borders. If a line is needed, it must be a "Ghost Border" at 10-20% opacity.
-- **Don't** crowd the Qsheet. If a table feels tight, increase the row padding to `spacing-4` (1rem).
+- **Don't** crowd the QueSheet. If a table feels tight, increase the row padding to `spacing-4` (1rem).
